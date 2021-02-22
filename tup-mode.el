@@ -1,11 +1,13 @@
 ;;; tup-mode.el --- Major mode for editing files for Tup
 ;;
 ;; Copyright 2012, 2013 Eric James Michael Ritz
-;;
+;; Copyright 2021 Pierre Rouleau
+
 ;; Author: Eric James Michael Ritz <lobbyjones@gmail.com>
 ;; URL: https://github.com/ejmr/tup-mode
-;; Version: 1.3.1
+;; Version: 1.3.2
 ;;
+;; Updates: Pierre Rouleau <prouleau001@gmail.com>
 ;;
 ;;
 ;;; License:
@@ -50,7 +52,7 @@
 (require 'font-lock)
 (require 'regexp-opt)
 
-(defconst tup-mode-version-number "1.3.1"
+(defconst tup-mode-version-number "1.3.2"
   "Tup mode version number.")
 
 (defgroup tup nil
@@ -150,7 +152,7 @@
 
 (defun tup/run-command (command)
   "Execute a Tup COMMAND in the current directory."
-  (call-process-shell-command "tup" nil nil nil command))
+  (call-process-shell-command (concat "tup " command)))
 
 (defmacro tup/make-command-function (name docstring)
   "Create a function to run the Tup command with the given NAME.
@@ -194,7 +196,8 @@ If the optional VARIANT argument is provided then the command
 updates that specific variant.  The output of the command appears
 in the `*Tup*' buffer."
   (let ((tup-buffer (get-buffer-create "*Tup*")))
-    (call-process-shell-command "tup" nil tup-buffer t "upd" variant)
+    (call-process-shell-command (concat "tup upd" (when variant " ") variant)
+                                nil tup-buffer t)
     (switch-to-buffer-other-window tup-buffer t)))
 
 (defun tup/run-command-upd (prefix)
@@ -212,7 +215,7 @@ a Tup variant."
 ;;; extension and for the specific files `Tupfile' and `tup.config'.
 ;;;###autoload
 (progn
-  (add-to-list 'auto-mode-alist '("\\.tup$" . tup-mode))
+  (add-to-list 'auto-mode-alist '("\\.tup\\'" . tup-mode))
   (add-to-list 'auto-mode-alist '("Tupfile" . tup-mode))
   (add-to-list 'auto-mode-alist '("tup.config" . tup-mode)))
 
