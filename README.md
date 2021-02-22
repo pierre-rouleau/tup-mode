@@ -29,8 +29,13 @@ will show you a `*Tup*` buffer containing the output from Tup so that
 you can see if the build succeeded or not.
 
 
-Contributors
-------------
+Original Author and Contributors
+--------------------------------
+
+This depot was imported from [ejmr/tup-mode](https://github.com/ejmr/tup-mode)
+originally written by [Eric James Michael Ritz](https://github.com/ejmr).
+
+Contributors:
 
 1. [Steve Purcell](https://github.com/purcell)
 2. [Jonas Bernoulli](https://github.com/tarsius)
