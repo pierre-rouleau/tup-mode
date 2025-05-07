@@ -1,7 +1,7 @@
-;;; tup-mode.el --- Major mode for editing files for Tup
+;;; tup-mode.el --- Major mode for editing files for Tup  -*- lexical-binding: t; -*-
 ;;
 ;; Copyright 2012, 2013 Eric James Michael Ritz
-;; Copyright 2021 Pierre Rouleau
+;; Copyright 2021, 2025 Pierre Rouleau
 
 ;; Author: Eric James Michael Ritz <lobbyjones@gmail.com>
 ;; URL: https://github.com/ejmr/tup-mode
@@ -157,7 +157,7 @@
 (defmacro tup/make-command-function (name docstring)
   "Create a function to run the Tup command with the given NAME.
 
-For example, if NAME is 'init' this makes `tup/run-command-init'.
+For example, if NAME is `init' this makes `tup/run-command-init'.
 The function will also have the given DOCSTRING."
   (let ((command-function (intern (concat "tup/run-command-" name))))
     `(defun ,command-function ()
@@ -190,17 +190,17 @@ The function will also have the given DOCSTRING."
  "Shows the next step in the Tup process.")
 
 (defun tup/run-upd (&optional variant)
-  "Run the Tup 'upd' command.
+  "Run the Tup `upd' command.
 
 If the optional VARIANT argument is provided then the command
 updates that specific variant.  The output of the command appears
-in the `*Tup*' buffer."
+in the \"*Tup*\" buffer."
   (let ((tup-buffer (get-buffer-create "*Tup*")))
     (call-process-shell-command (concat "tup upd" (when variant " ") variant)
                                 nil tup-buffer t)
     (switch-to-buffer-other-window tup-buffer t)))
 
-(defun tup/run-command-upd (prefix)
+(defun tup/run-command-upd (&optional prefix)
   "Update the current project in the current directory.
 
 If given the PREFIX the function prompts the user for the name of
